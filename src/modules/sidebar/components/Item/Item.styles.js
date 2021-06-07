@@ -5,7 +5,7 @@ export const ItemWrapper = styled.div`
     justify-content: start;
     align-items: center;
     height: 50px;
-    padding: 10px;
+    cursor: pointer;
 `
 
 export const ItemTitle = styled.div`

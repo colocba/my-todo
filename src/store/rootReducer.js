@@ -1,8 +1,10 @@
-import todosReducer from "../modules/todos/data/reducer"
+import todosReducer from "../modules/todosPanel/data/reducer"
 import {combineReducers} from 'redux';
 import { themeReducer } from "../modules/app/data/reducers";
+import {itemsReduce} from "../modules/items/data/reducer";
 
 export default combineReducers({
-    lists: todosReducer,
+    todos: todosReducer,
+    items: itemsReduce,
     theme: themeReducer
 });

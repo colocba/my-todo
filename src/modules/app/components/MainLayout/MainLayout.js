@@ -5,16 +5,15 @@ import { MainLayoutWrapper } from "./MainLayout.styles"
 
 export const MainLayout = () => {
     const [itemSelected, setItemSelected] = useState(SIDEBAR_ITEMS.MY_TODOS);
-    console.log("MainLayoutMainLayout")
 
     const getLazyComponent = (itemSelected) => {
         switch (itemSelected) {
             case SIDEBAR_ITEMS.MY_TODOS:
-                return React.lazy(() => import("../../../todos/components/TodosPanel/TodosPanel"));
+                return React.lazy(() => import("../../../todosPanel/components/TodosPanel/TodosPanel"));
             case SIDEBAR_ITEMS.MY_STATS:
                 return React.lazy(() => import("../../../stats/components/MyStats/MyStats"))
             default:
-                return React.lazy(() => import("../../../todos/components/TodosPanel/TodosPanel"));
+                return React.lazy(() => import("../../../todosPanel/components/TodosPanel/TodosPanel"));
         }
     }
 
@@ -27,6 +26,6 @@ export const MainLayout = () => {
             <Sidebar setItemSelected={setItemSelected}/>
             <Suspense fallback={<div>Loading...</div>}>
                 <ComponentSelected/>
-            </Suspense>;
+            </Suspense>
         </MainLayoutWrapper>
 }

@@ -1,16 +1,16 @@
 import { connect } from "react-redux"
 import { getLists } from "../data/selectors";
 
-const TodosPanelContainer = ({lists, children}) => {
+const TodosPanelContainer = ({todos, children}) => {
     const childProps = {
-        lists
+        todos
     };
 
     return <>{children(childProps)}</>
 }
 
 const mapStateToProps = (state) => ({
-    lists: getLists(state)
-})
+    todos: getLists(state)
+});
 
 export default connect(mapStateToProps)(TodosPanelContainer)
