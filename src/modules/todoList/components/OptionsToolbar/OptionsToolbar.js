@@ -2,29 +2,44 @@ import {ToolbarOption, ToolbarWrapper} from "./OptionToolbar.styles";
 import {faTimesCircle, faTh, faThList, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import {Icon} from "../../../common/components/Icon/Icon";
 import ReactTooltip from "react-tooltip";
+import Swal from 'sweetalert2';
 
-export const OptionsToolbar = ({toggleColumnView, isColumnView, removeTodoList}) => {
+const getOptions = (isColumnView, removeTodoList, toggleColumnView, addItem) => [
+    {id: 'removeIcon', icon: faTimesCircle, color: 'black', size: '25px', tooltip: 'Remove list', action: removeTodoList},
+    {id: 'viewType', icon: isColumnView ? faTh : faThList, color: 'black', size: '25px', tooltip: 'Toggle between grid and list types', action: toggleColumnView},
+    {id: 'addIcon', icon: faPlusCircle, color: 'black', size: '25px', tooltip: 'Add item', action: () => handleAddItem(addItem)}
+];
+
+const handleAddItem = async (addItem) => {
+    const { value: text } = await Swal.fire({
+        title: 'Enter the text for your new todo item',
+        input: 'text',
+        inputValue: null,
+        showCancelButton: true,
+        inputValidator: (value) => {
+            if (!value) {
+                return 'You need to write something!'
+            }
+        }
+    });
+    addItem(text);
+};
+
+export const OptionsToolbar = ({toggleColumnView, isColumnView, removeTodoList, addItem}) => {
+    const options = getOptions(isColumnView, removeTodoList, toggleColumnView, addItem);
     return (
-        <div style={{position: 'absolute', bottom: '130px', right: '80px'}}>
+        <div style={{position: 'absolute', bottom: '100px', right: '60px'}}>
             <ToolbarWrapper>
-                <ToolbarOption data-tip data-for={'removeIcon'} onClick={removeTodoList}>
-                    <Icon size={'25px'} icon={faTimesCircle} color={'black'}/>
-                </ToolbarOption>
-                <ReactTooltip id={'removeIcon'} place="left" type="dark" effect="solid">
-                    <span>Remove list</span>
-                </ReactTooltip>
-                <ToolbarOption onClick={() => toggleColumnView()} data-tip data-for={'viewType'}>
-                    <Icon size={'25px'} icon={isColumnView ? faTh : faThList} color={'black'}/>
-                </ToolbarOption>
-                <ReactTooltip id={'viewType'} place="left" type="dark" effect="solid">
-                    <span>Toggle between grid and list types</span>
-                </ReactTooltip>
-                <ToolbarOption data-tip data-for={'addIcon'}>
-                    <Icon size={'25px'} icon={faPlusCircle} color={'black'}/>
-                </ToolbarOption>
-                <ReactTooltip id={'addIcon'} place="left" type="dark" effect="solid">
-                    <span>Add item</span>
-                </ReactTooltip>
+                {options.map(option => {
+                    return <>
+                        <ToolbarOption data-tip data-for={option.id} onClick={() => option.action()}>
+                            <Icon size={option.size} icon={option.icon} color={option.color}/>
+                        </ToolbarOption>
+                        <ReactTooltip id={option.id} place="left" type="dark" effect="solid">
+                            <span>{option.tooltip}</span>
+                        </ReactTooltip>
+                    </>
+                })}
             </ToolbarWrapper>
         </div>
     )

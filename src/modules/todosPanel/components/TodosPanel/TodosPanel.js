@@ -1,6 +1,7 @@
 import TodosPanelContainer from "../../containers/TodosPanelContainer";
-import { TodoList } from "../../../todoList/components/TodoList/TodoList";
+import TodoList from "../../../todoList/components/TodoList/TodoList";
 import { TodosPanelWrapper } from "./TodosPanel.styles";
+import {useState} from "react";
 
 const TodosPanel = () => {
     return <TodosPanelContainer>

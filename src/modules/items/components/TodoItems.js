@@ -1,5 +1,5 @@
-import {TodoItem} from "../todoList/components/Todo/TodoItem";
-import TodoItemsContainer from "./containers/TodoItemsContainer";
+import {TodoItem} from "../../todoList/components/Todo/TodoItem";
+import TodoItemsContainer from "../containers/TodoItemsContainer";
 
 export const TodoItems = (props) => {
     const {isColumnView} = props;

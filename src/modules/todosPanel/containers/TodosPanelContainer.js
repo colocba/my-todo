@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import { getLists } from "../data/selectors";
 
-const TodosPanelContainer = ({todos, children}) => {
+const TodosPanelContainer = ({todos, lala, children}) => {
     const childProps = {
         todos
     };
